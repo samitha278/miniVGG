@@ -38,7 +38,5 @@ $RECYCLE.BIN/
 
 
 
-# Hugging Face cache
+data/
 
-~/.cache/huggingface/
-C:/Users/LENOVO/.cache/huggingface/
