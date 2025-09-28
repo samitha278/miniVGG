@@ -14,11 +14,6 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
 
-
-
-
-
-
 @dataclass
 class Config():
     in_ch : int = 1

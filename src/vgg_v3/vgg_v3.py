@@ -19,6 +19,7 @@ class Config():
     in_ch : int = 1
     n_embd : int = 36 
     n_class : int = 10
+    dropout : int = 0.2
 
 
 class minVGG(nn.Module):
@@ -81,6 +82,7 @@ class MLP(nn.Module):
         self.layer = nn.Linear(config.n_embd,4*config.n_embd)
         self.relu = nn.ReLU()
         self.proj = nn.Linear(4*config.n_embd,config.n_class)
+        self.dropout = nn.Dropout(config.dropout)
 
 
     def forward(self,x):
@@ -88,6 +90,7 @@ class MLP(nn.Module):
         x = self.layer(x)
         x = self.relu(x)
         x = self.proj(x)
+        x = self.dropout(x)
 
         return x
   

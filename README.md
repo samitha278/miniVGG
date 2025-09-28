@@ -135,7 +135,7 @@ Time for just one Iteration
 ```
 Conv2D 5x5 -> Batch Norm -> ReLu -> MaxPool2D 3x3->
 Conv2D 3x3 -> Batch Norm -> ReLu -> MaxPool2D 2x2->
-MLP (Layer Norm -> Linear -> ReLu -> Projection)
+MLP (Layer Norm -> Linear -> ReLu -> Projection -> Dropout)
 ```
 
 
@@ -167,7 +167,7 @@ image channels = 1
 900/1000  0.5771   8.7245 ms   norm:3.6592    lr:1.5053e-04
 Time for just one Iteration
       </pre>
-      <h4>Learning Rates</h4>
+      <h4>LR Schedule: Warm up + Cosine decay</h4>
       <img src="images/s3__.png" alt="Lrs - Step 3" width="300"/>
     </td>
     <td valign="top" width="50%">
