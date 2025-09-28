@@ -120,3 +120,68 @@ Time for just one Iteration
 ```
 
 ---
+
+
+
+
+### Step 3 : vgg_v3
+- Training Techniques
+- LR Schedule 
+- Weight Decay : AdamW (decoupled Adam)
+- Gradient Clipping
+
+### Architecture : vgg_v3
+
+```
+Conv2D 5x5 -> Batch Norm -> ReLu -> MaxPool2D 3x3->
+Conv2D 3x3 -> Batch Norm -> ReLu -> MaxPool2D 2x2->
+MLP (Layer Norm -> Linear -> ReLu -> Projection)
+```
+
+
+**Training Configuration**
+```
+Max Iterations = 1000
+Learning Rate  = 3e-4  
+
+MNIST Dataset :
+image size     = 28 x 28 
+image channels = 1
+```
+
+
+<table>
+  <tr>
+    <td valign="top" width="50%">
+      <h4>Training Results : Batch Size = 16</h4>
+      <pre>
+  0/1000  2.2896  16.0584 ms   norm:1.5367    lr:0.0000e+00
+100/1000  1.8655   8.5244 ms   norm:1.8228    lr:4.3745e-04
+200/1000  1.3525   8.6081 ms   norm:2.2887    lr:4.1419e-04
+300/1000  0.9474  12.7351 ms   norm:2.9101    lr:3.7822e-04
+400/1000  0.9315  14.9176 ms   norm:3.4945    lr:3.3345e-04
+500/1000  0.3512   9.2251 ms   norm:1.9331    lr:2.8474e-04
+600/1000  0.5896   8.6942 ms   norm:2.5713    lr:2.3735e-04
+700/1000  0.3812   8.8377 ms   norm:2.4289    lr:1.9642e-04
+800/1000  0.3488   8.3780 ms   norm:2.8563    lr:1.6640e-04
+900/1000  0.5771   8.7245 ms   norm:3.6592    lr:1.5053e-04
+Time for just one Iteration
+      </pre>
+      <h4>Learning Rates</h4>
+      <img src="images/s3__.png" alt="Lrs - Step 3" width="300"/>
+    </td>
+    <td valign="top" width="50%">
+      <h4>Loss Curve</h4>
+      <img src="images/s3.png" alt="Loss curve - Step 3" width="400"/>
+      <h4>Norms</h4>
+      <img src="images/s3_.png" alt="Norms - Step 3" width="400"/>
+    </td>
+  </tr>
+</table>
+
+**Validation accuracy**
+```
+0.8947 : Batch Size = 16
+```
+
+---
