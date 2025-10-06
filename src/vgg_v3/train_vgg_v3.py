@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from torchvision import datasets, transforms
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader 
 
 import time
 import math
@@ -13,9 +13,9 @@ from dataclasses import dataclass
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
-from vgg_v2 import minVGG,Config
+from vgg_v3 import minVGG,Config
 
-
+print(device)
 
 
 # --------------------------------------------------------------------------
@@ -61,7 +61,7 @@ cnn = torch.compile(cnn)
 # ------------------------------------------------------------------------------
 # Learning Rate Schedule
 
-max_iter = 1000
+max_iter = 1000 # 1000
 max_lr = 3e-4
 min_lr = max_lr * 0.01
 warm_up = max_iter * 0.05
@@ -99,10 +99,13 @@ train_iter = iter(train_data)
 for i in range(max_iter):
 
     t0 = time.time()
-
-    xb , yb = next(train_iter)
+    try:
+        xb , yb = next(train_iter)
+    except StopIteration:
+        train_iter = iter(train_data)
+        xb , yb = next(train_iter)
+        
     xb,yb = xb.to(device) , yb.to(device)
-
     logits , loss = cnn(xb,yb)
 
     optimizer.zero_grad()
@@ -128,4 +131,3 @@ for i in range(max_iter):
     norms[i] = norm.item()
 
     if i%100 ==0 : print(f'{i}/{max_iter}  {loss.item():.4f}  {dt:.4f} ms   norm:{norm.item():.4f}    lr:{lr:.4e}')
-
