@@ -40,8 +40,8 @@ train_data, val_data = get_dataloaders("/home/samitha/Projects/datasets/imagenet
 
 
 # Initialize Model
-
-cnn = minVGG(Config())
+config = Config()
+cnn = minVGG(config)
 cnn = cnn.to(device)
 cnn_compiled = torch.compile(cnn)
 
@@ -49,7 +49,7 @@ cnn_compiled = torch.compile(cnn)
 # ------------------------------------------------------------------------------
 # Learning Rate Schedule
 
-max_iter = 100000 # 1000
+max_iter = 200000 # 1000
 max_lr = 3e-4
 min_lr = max_lr * 0.01
 warm_up = max_iter * 0.05
@@ -97,20 +97,20 @@ for i in range(max_iter):
     
     
     # Validation ---------------------------------------------------
-    if i % 500 == 0 and i==final_step:
+    if i % 500 == 0 or i==final_step:
         cnn_compiled.eval()
         with torch.no_grad():
             
             val_loss = 0.0
-            step = 0
+            val_step = 0
             for x,y in val_data:
-                x,y = x.to(device).y.to(device)
+                x,y = x.to(device),y.to(device)
                 with torch.autocast(device_type=device,dtype=torch.bfloat16):
                     logits,loss = cnn_compiled(x,y)
                 
-                loss_accu += loss.detach()
-                step+=1
-            val_loss /= step
+                val_loss += loss.detach()
+                val_step+=1
+            val_loss /= val_step
         
         print(f'val loss : {val_loss.item():.4f}')
         with open(log_file, "a") as f:
@@ -122,12 +122,11 @@ for i in range(max_iter):
     # Save Checkpoint ---------------------------------------------
     
     if i>0 and (i%20000 == 0 or i == final_step):
-        checkpoint_path = os.path.join(log_dir, f"model_{step:05d}.pt")
+        checkpoint_path = os.path.join(log_dir, f"model_{i:05d}.pt")
         checkpoint = {
             'model': cnn.state_dict(),
-            'config': cnn.config,
+            'config': config,
             'step': i,
-            'val_loss': val_loss.item(),
             'optimizer': optimizer.state_dict()
         }
         torch.save(checkpoint, checkpoint_path)
