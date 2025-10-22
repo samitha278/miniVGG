@@ -15,10 +15,12 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.models.vgg_v3 import minVGG,Config
+from models.vgg_v3 import minVGG,Config
 
-from src.data.dataset import get_dataloaders
+from data.dataset import get_dataloaders
 
+
+tt1 = time.time()
 
 
 
@@ -109,6 +111,10 @@ for i in range(max_iter):
                 loss_accu += loss.detach()
                 step+=1
             val_loss /= step
+        
+        print(f'val loss : {val_loss.item():.4f}')
+        with open(log_file, "a") as f:
+            f.write(f"{i} val {val_loss.item():.4f}\n")
                 
         cnn_compiled.train()
         
@@ -165,3 +171,15 @@ for i in range(max_iter):
     
     with open(log_file, "a") as f:
         f.write(f"{i} train {loss.item():.6f}\n")
+
+
+
+tt2 = time.time()
+
+dtt = (tt2 - tt1) * 1000 # ms
+
+time_file = os.path.join(log_dir, f"time_total.txt")
+
+with open(time_file, "w") as f: 
+    f.write(f"total training time : {dtt}\n")
+ 
