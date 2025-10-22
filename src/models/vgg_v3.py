@@ -12,10 +12,10 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 @dataclass
 class Config():
-    in_ch : int = 1
-    n_embd : int = 36 
-    n_class : int = 10
-    dropout : int = 0.2
+    in_ch : int = 3
+    n_embd : int = 14700
+    n_class : int = 100
+    dropout : int = 0.1
     
 
 
