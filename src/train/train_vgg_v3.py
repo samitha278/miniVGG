@@ -31,7 +31,7 @@ if torch.cuda.is_available():
 
 # --------------------------------------------------------------------------
 
-batch_size = 64
+batch_size = 32
 
 train_data, val_data = get_dataloaders("/home/samitha/Projects/datasets/imagenet100",batch_size = batch_size)
 
