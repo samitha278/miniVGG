@@ -1,9 +1,6 @@
 import torch 
 import numpy as np
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-import os
+# import os
 
 torch.manual_seed(278)
 if torch.cuda.is_available():
@@ -12,7 +9,7 @@ if torch.cuda.is_available():
 
 def evaluate(model,val_loader,device):
     
-    os.makedirs('experiments/results', exist_ok=True)
+    # os.makedirs('experiments/results', exist_ok=True)
     
     model.eval()
     

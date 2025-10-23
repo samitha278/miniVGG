@@ -185,3 +185,53 @@ Time for just one Iteration
 ```
 
 ---
+
+
+
+
+
+
+### Step 4 : 
+- change dir
+- torch.compile
+
+### Architecture : vgg_v3
+
+```
+Conv2D 5x5 -> Batch Norm -> ReLu -> MaxPool2D 4x4->
+Conv2D 3x3 -> Batch Norm -> ReLu -> MaxPool2D 4x4->
+MLP (Layer Norm -> Linear -> ReLu -> Projection -> Dropout)
+```
+
+
+**Training Configuration**
+```
+Max Iterations = 200000
+Learning Rate  = max: 3e-4, min: 3e-6  
+
+IMAGENET100 Dataset :
+image size     = 224 x 224 
+image channels = 3
+batch size     = 32
+```
+
+
+<table>
+  <tr>
+    <td valign="top" width="50%">
+      <h4>Training Results : Batch Size = 32</h4>
+      <img src="images/s4_.png" alt="Training Results - Step 4" width="400"/>
+    </td>
+    <td valign="top" width="50%">
+      <h4>Loss Curve</h4>
+      <img src="images/s4.png" alt="Loss curve - Step 4" width="400"/>
+    </td>
+  </tr>
+</table>
+
+**Validation accuracy**
+```
+...
+```
+
+---

@@ -10,6 +10,7 @@ from src.evaluation.evaluation import evaluate
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
+
 torch.manual_seed(278)
 if torch.cuda.is_available():
     torch.cuda.manual_seed(278)
@@ -18,11 +19,11 @@ if torch.cuda.is_available():
 config = Config()
 model = minVGG(config)
 
-# checkpoint = torch.load("path",map_location='cuda') 
+checkpoint = torch.load("/home/samitha/Projects/miniVGG/log/model_199999.pt",map_location='cuda') 
 
 
-# model.load_state_dict(checkpoint)
-# model.to(device)
+model.load_state_dict(checkpoint['model'])
+model.to(device)
 
 # Load val data
 from src.data.dataset import get_val_dataloader
