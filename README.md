@@ -234,4 +234,8 @@ batch size     = 32
 ...
 ```
 
+
+## FineTune
+
+- try : Resnet18  
 ---

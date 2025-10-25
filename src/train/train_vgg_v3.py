@@ -10,6 +10,7 @@ from dataclasses import dataclass
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
+print(device)
 
 import sys
 import os
@@ -72,7 +73,7 @@ def get_lr(i):
 
 # Log Dir ----------------------------------------------------------------------
 
-log_dir = "log"
+log_dir = "log_SGD_wM"
 os.makedirs(log_dir, exist_ok=True)
 log_file = os.path.join(log_dir, f"log.txt")
 
@@ -85,7 +86,9 @@ with open(log_file, "w") as f:
 use_fused = torch.cuda.is_available()
 
 # optimizer with weight decay
-optimizer = torch.optim.AdamW(cnn.parameters(),lr = max_lr ,fused = use_fused,weight_decay=0.1)
+# optimizer = torch.optim.AdamW(cnn.parameters(),lr = max_lr ,fused = use_fused,weight_decay=0.1)
+
+optimizer = torch.optim.SGD(cnn.parameters(),lr=max_lr,momentum=0.9,weight_decay=0.1, fused = use_fused)
 
 final_step = max_iter-1
 train_iter = iter(train_data)
