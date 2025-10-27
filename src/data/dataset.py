@@ -89,11 +89,6 @@ def get_dataloaders(dataset_path,batch_size = 32,streaming =  False):
         persistent_workers=True
     )
     
-    # print(f"Train samples: {len(train_ds)}")
-    # print(f"Val samples: {len(val_ds)}")
-    # print(f"Train batches: {len(train_loader)}")
-    # print(f"Val batches: {len(val_loader)}")
-    
     return train_loader, val_loader
 
 
