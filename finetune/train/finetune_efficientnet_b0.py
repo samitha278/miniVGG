@@ -16,7 +16,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from efficeientnet_b0 import setup_efficientnet_b0
+from efficientnet_b0 import setup_efficientnet_b0
 
 
 from data.dataset import get_dataloaders
@@ -74,7 +74,7 @@ def get_lr(i):
 
 # Log Dir ----------------------------------------------------------------------
 
-log_dir = "log_resnet18"
+log_dir = "log_effnetb0"
 os.makedirs(log_dir, exist_ok=True)
 log_file = os.path.join(log_dir, f"log.txt")
 
