@@ -236,6 +236,6 @@ batch size     = 32
 
 
 ## FineTune
-
-- try : Resnet18  
+- To compare
+- Resnet18 , Efficientnet b0 
 ---
